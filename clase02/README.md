@@ -69,7 +69,22 @@ a = 6,1;
 b = int(a);
 print(a);
 
+### Como hacer una linea en processing:
 
+Con una función llamada line, donde debo decir la coordenada x e y de un extremo y la coordenada del otro. Se declara line(x1,y1,x2,y2);
+ej:
+line(10,20,80,60);
+
+# ENCARGO 02
+### Usar la frase del encargo pasado en processing de alguna manera
+
+## Formas primitivas en processing
+
+// Sobre las primitivas
+
+//colores
+
+//incestigar mouseX y mouseY
 
 
 
