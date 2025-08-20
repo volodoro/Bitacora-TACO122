@@ -1,0 +1,75 @@
+//Este es mi repaso del cuarto código que hicimos la clase pasada
+//donde estudiamos las funciones setup y draw
+
+//declaramos una variable antes de la función setup
+
+int cantidad = 0;
+
+void setup() {
+  colorMode(HSB);
+  //HSB significa tono-saturación-brillo (Hue,Saturation,Brightness, y es una forma mucho más amigable
+  //para los humanos de describir el color en comparación a RGB
+  //El tono es un número entre 0 y 360. Se mide en grados, como los grados de un
+  //círculo. 0° sería rojo y 360 violeta.
+  //recordar la canción de Boards of Canada ROYGIB (Red, Orange, Yellow, Green, Indigo, Violet)
+  size(400, 600);
+  //definir el color del lienzo. Recordemos que si solo declaro un argumento, el
+  //valor será interpretado como escala de grises. Si quiero RGB, declaro los 3
+  //argumentos como valores entre 0 y 255 cada uno. Ej:
+  background(90, 255, 200);
+
+  //ajustar el framerate, que por defecto es 60
+  frameRate(10);
+}
+
+void draw() {
+  //declarando un color al inicio de la función draw se borra el anterior
+  background(mouseY, 255, 255);
+  //ocurren otras cosas
+  line(10, 200, 250, 100);
+  line(30, 10, 300, 460);
+
+  //para hacer un triangulo: la sintaxis del triangulo es
+  //  triangle(x1, y1, x2, y2, x3, y3)
+  triangle(25, 180, 180, 360, 81, 360);
+
+  //cabe mencionar que el orden de los puntos está determinado de izq. a
+  //der. en el eje de las abscisas
+
+  //para hacer un triangulo con variables
+  triangle(cantidad, 180, 180, 360, 81, 360);
+  //en este caso lo que varía es el punto x del primer vértice de izq a der
+
+
+  textSize(30);
+  fill(0); //relleno de negro
+  text("hola terricolas", 30, 500);
+
+  //puedo actualizar cantidad de 1 en 1
+  cantidad = cantidad + 10 ;
+
+  println(cantidad);
+  text("les envio "+ cantidad + " saludos", 30, 530);
+  text(frameCount, 30, 550);
+  rect(10, 300, 380, 100);
+}
+
+//SOBRE LAS PRIMITIVAS
+//triangle(), rect(), quad(), ellipse(), and arc(). Squares are made with rect() and circles are made with ellipse().
+
+//Sintaxis de las figuras primitivas
+
+//Rectángulo: rect(a,b,c,d); De forma predeterminada, los dos primeros parámetros establecen
+//la ubicación de la esquina superior izquierda, el tercero establece el ancho
+//y el cuarto establece la altura.
+
+//cuadrilatero: quad(a,b,c,d,e,f,g,h); quad() es un cuadrilátero, un polígono 
+//Es similar a un rectángulo, pero los ángulos entre sus bordes no están 
+//limitados a noventa grados. El primer par de parámetros (x1,y1) establece el 
+//primer vértice y los pares posteriores deben proceder en el sentido de las 
+//agujas del reloj o en el sentido contrario alrededor de la forma definida
+
+//elipse: ellipse(puntoXorigen,puntoYorigen,ancho,altura); Dibuja una elipse (óvalo) en la pantalla. Una elipse con 
+//igual ancho y alto es un círculo. De forma predeterminada, los dos primeros 
+//parámetros establecen la ubicación, y el tercer y cuarto parámetros establecen el ancho 
+//y el alto de la forma.
