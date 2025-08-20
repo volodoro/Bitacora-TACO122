@@ -1,0 +1,35 @@
+Estos son los apuntes que hice en mi casa para repasar lo de la clase 2:
+
+//Ahora voy a replicar el código de las líneas y el texto que hicimos la clase pasada
+//para hacer lineas necesitamos la funcion line a la que debemos decirle
+//la coordenada x e y de un extremo y la coordenada del otro
+
+//esto se hace de la siguiente forma ---> line(x1,y1,x2,y2);
+//Ejemplo:
+
+line(10,20,80,60);
+line(30,80,35,5);
+
+//para ajustar el tamaño del lienzo usamos la funcion "size(ancho,largo);
+size(400,600);
+
+//para definir un color de fondo usamos la función "background(n)"
+//donde, si solo existe un argumento se entenderá que el valor corresponde a
+//escala de grises
+background(120);
+
+//si quiero que las lineas que creé aparezcan delante de este color, debemos
+//crearlas DESPUÉS de definir el color del lienzo
+
+line(10,200,250,100);
+line(30,10,300,460);
+
+//TEXTO!! Para incluir texto EN EL CANVAS se utiliza la función text()
+//sus argumentos son ("texto", posiciónX,posicionY);
+
+//para ajustar el tamaño del texto DEBEMOS hacerlo ANTES DE ESCRIBIR
+//con la función textSize()
+//Ejemplo:
+textSize(30);
+fill(0); //llenamos el texto con un color de la escala de grises, en este caso negro
+text("Hoy es 19 de Agosto de 2025", 20, 300);
