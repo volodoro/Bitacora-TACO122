@@ -1,0 +1,173 @@
+// Posición inicial del texto y la elipse
+float x, y;
+float velocidadX = -0.5; // movimiento hacia la izquierda
+float velocidadY = 0.5;  // movimiento hacia abajo
+float separacion = 3;  // desplazamiento diagonal de las capas
+
+// Dimensiones de la elipse
+float elipseAncho = 500;
+float elipseAlto = 150;
+
+void setup() {
+  size(600, 600);
+  colorMode(HSB);
+  textSize(60);
+  textAlign(CENTER, CENTER);
+
+
+  // Empezamos en la esquina superior derecha
+  x = width - 100;
+  y = 100;
+}
+
+void draw() {
+
+  ///Triangulo esquina inferior derecha
+  background(0, 200, 200);
+  fill(0);
+  triangle(400, 600, 600, 400, 600, 600);
+
+  ///Triangulo negro esquina superior izquierda
+  fill(0);
+  triangle(0, 0, 0, 300, 300, 0);
+  //Triangulo blanco esquina superior izquierda
+  fill(255);
+  triangle(10, 10, 10, 225, 225, 10);
+  //Triangulo Raro
+  fill(0);
+  triangle(0, 347, 347, 0, 200, 200);
+
+  //rectangulo 1
+
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(radians(-45));
+  fill(255);
+  rectMode(CENTER);  // dibujar desde el centro
+  rect(50, 200, 600, 50); //
+  ///rectangulo 2
+  fill(0);
+  rectMode(CENTER);      // dibujar desde el centro
+  rect(50, 180, 600, 10); //
+  //rectangulo 3
+  fill(255);
+  rect(50, 300, 600, 10); //
+  //rectangulo 4
+  fill(0);
+  rect(50, 220, 600, 10); //
+  fill(0);
+  rect(50, 200, 600, 5); //
+  //rectangulo 5
+  fill(255);
+  rect(50, -210, 600, 60); //
+  //rectangulo 6
+  fill(0);
+  rect(-50, -300, 500, 20); //
+  //rectangulo 6
+  fill(0);
+  rect(-50, -350, 500, 20); //
+  popMatrix();
+
+
+
+
+
+  // linea segmentada hecha a base de rectángulos y un ciclo for
+  fill(0);
+  // rect(100,100, 30, 10); ---> este es el rectángulo que me gusta
+
+  int num1 = 30;         // cantidad de rectangulos
+  float espacio1 = 50;  // separación entre rectangulos
+  pushMatrix();
+  translate(0, 300);
+  rotate(radians(45));  // rotación positiva (horario)
+
+  for (int i = 0; i < num1; i++) {
+
+    // dibujar triángulo isósceles apuntando hacia la diagonal
+    rect(0, 0, 10, 30);
+
+    // movernos hacia arriba (punta del rectangulo) + separación
+    translate(0, -(espacio1));
+  }
+
+  //-----------------FIN LINEA SEGMENTADA------------------------
+
+  //--------------BISECTRIZ ESQUINA SUPERIOR IZQUIERDA-------------------
+  pushMatrix();
+  translate(width/2, height/2);
+  // rotate(radians(45));  // rotación positiva (horario)
+  fill(0);
+  rect(500, 400, 300, 30);
+  popMatrix();
+
+
+
+
+
+  popMatrix();
+
+
+  int num2 = 16;         // cantidad de triángulos
+  float base = 30;     // base del triángulo
+  float altura = 40;  // altura del triángulo
+  float espacio2 = 12.5;  // separación entre triángulos
+
+  // punto inicial en esquina inferior izquierda
+  pushMatrix();
+  translate(0, height);
+  rotate(radians(45));  // rotación positiva (horario)
+
+  for (int i = 0; i < num2; i++) {
+    // alternar color
+    if (i % 2 == 0) fill(0);
+    else fill(255);
+
+    // dibujar triángulo isósceles apuntando hacia la diagonal
+    triangle(0, 0, -base/2, -altura, base/2, -altura);
+
+    // movernos hacia arriba (punta del triángulo) + separación
+    translate(0, -(altura + espacio2));
+  }
+
+  popMatrix();
+  //----------- APARTADO DE TEXTO -----------------------------------------------
+
+  //Texto Principal----------------------------------------------
+  pushMatrix();
+  translate(x, y);          // movemos el origen al centro del conjunto
+  rotate(radians(-45));     // rotación fija -45°
+
+  // ---- Dibujar elipse blanca ----
+  noStroke();
+  fill(200);
+  ellipse(0, 0, elipseAncho, elipseAlto);
+
+  // ---- Texto con capas de eco ----
+  fill(0);
+  text("NI PENA NI MIEDO", 0, 0);
+
+  fill(75);
+  text("NI PENA NI MIEDO", separacion, separacion);
+
+  fill(150);
+  text("NI PENA NI MIEDO", 2*separacion, 2*separacion);
+
+  fill(200);
+  text("NI PENA NI MIEDO", 3*separacion, 3*separacion);
+
+  fill(255);
+  text("NI PENA NI MIEDO", 4*separacion, 4*separacion);
+
+  popMatrix();
+
+  // Actualizamos posición
+  x += velocidadX;
+  y += velocidadY;
+
+  // Rebote en bordes (aproximado, considerando margen)
+  float margen = 100; // un margen mayor para la elipse
+  if (x < margen || x > width - margen) velocidadX *= -1;
+  if (y < margen || y > height - margen) velocidadY *= -1;
+  //------------------ FIN TEXTO
+}
