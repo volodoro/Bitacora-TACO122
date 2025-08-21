@@ -1,0 +1,66 @@
+
+//Lo primero que debo hacer para programar en aeduino es saber si mis pines son outputs o inputs
+//El LED interno de arduino está conectado al Pin 13
+//vamos a crear una variable para decir dónde está el led
+
+int ledPin = 13;
+int tiempoPunto = 100;
+int separador = 50;
+int tiempoRaya = 500;
+int finCaracter = 100;
+int espacio = 500;
+
+//Lo bueno de definir estas variables previamente es que luego bastará con cambiarlas aquí arriba una sola vez y esto afectará la variable declarada
+//a lo largo de todo el código
+
+void setup() {
+
+  //sintaxis --> (Numero de Pin,INPUT u OUTPUT)
+  pinMode(ledPin, OUTPUT);
+  //Serial.begin es la función que inicia la comunicación serial, es decir, mantiene el arduino conectado al computador
+  //el númetro es la tasa de baudios
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  punto( );
+  raya( );
+  //una
+  //para encender el led hay que 'escribir en él
+  //se usa la función
+  //digitalWrite(numerodepin,estado0o1);
+
+  //prendemos el punto
+  //cerramos el caracter
+  delay(finCaracter);
+
+
+}
+
+void punto() {
+    digitalWrite(ledPin, HIGH);
+  //esperamos el punto encendido
+  Serial.println("punto");
+//  Serial.print("me Prendí\n");
+  delay(tiempoPunto);  //con delay paralizamos el codigo por un tiempo en milisegundos
+  //apagamos el led 
+  digitalWrite(ledPin, LOW);  //apagamos el Led
+ // Serial.print("me apagué\n");
+ //esperamos el tiempo separador
+  delay(separador);
+
+}
+
+void raya() {
+    //encendemos la raya
+  digitalWrite(ledPin,HIGH);
+  Serial.println("raya");
+  //delay raya
+  delay(tiempoRaya);
+  //apagamos la raya
+  digitalWrite(ledPin,LOW);
+
+
+
+
