@@ -20,3 +20,5 @@ Las resistencias están hechas con carbón, que es un material resistivo, depend
 Los potenciómetros tienen una suerte de circunferencia de carbón dentro de sí, y dependiendo de la región que delimitemos al girar la perilla, habrá más o menos resistencia entre los pines extremos.
 
 El símbolo del potenciometro es una resistencia con una flechita apuntando hacia su centro
+
+![potsym](fotos/pot.png)
