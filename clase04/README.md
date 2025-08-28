@@ -21,4 +21,25 @@ Los potenciómetros tienen una suerte de circunferencia de carbón dentro de sí
 
 El símbolo del potenciometro es una resistencia con una flechita apuntando hacia su centro
 
-![potsym](fotos/pot.png)
+Por qué el valor máximo del potenciómetro es 1023?
+
+En la programación se empieza a contar desde 0. El bit menos significativo solo alternará entre 0 y 1. Un bit puede tener solo dos estados: 0 o 1. 
+
+En Arduino existe una función llamada map, su sintaxis es:
+y = (variable, valorminimoanterior,valormaximoanterior,valorminimonuevo,valormaximonuevo);
+en este caso ---->   potMapeado = map(valorPot, 0, 1023, 0, 100);
+
+-----------------------------------------------------------
+
+Al usar millis, la función epmezará a contar una vez se encienda el arduino y su contador solo crecerá.
+
+Por ejemplo, si queremos hacer que haya un blink cada 1 segundo (1000ms).
+
+No todas las salidas de Arduino son iguales, hay algunas que tienen una virgulilla (~). Estas salidas son capaces de trabajar con PULSE-WIDTH-MODULATION.
+Esto sirve para emular comportamientos análogos, ya que arduino no puede hacerlo realmente debido a que solo se mueve en el dominio digital. Lo único que hace Arduino es apagarse y prenderse muy rápido, esto lo hace modulando el ancho de los pulsos de la onda cuadrada que representa los estados ON y OFF.
+
+## Encargo 4
+
+- Usar la estructura if para alterar el brillo del led con otros comportamientos. Por ejemplo
+
+- Traer pantalla oled listada en materiales
