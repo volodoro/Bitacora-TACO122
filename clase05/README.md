@@ -38,7 +38,5 @@ Estos pines permiten conectar la cantidad de módulos que sea solo con dos patas
 
 Para usar una pantalla debemos descargar una biblioteca de Arduino. Una biblioteca es un conjunto de códigos que se pueden incorporar en nuestros códigos. En este caso usaremos la biblioteca Adafruit SSD1306
 
-## Cómo se conecta la pantalla
-
-Hay dos formas de hacer un testeo. Recom
+Para añadir imágenes en la pantalla podemos ir a la página 
         
