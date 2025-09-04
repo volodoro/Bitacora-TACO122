@@ -16,7 +16,8 @@ tiene 128x64 pixeles. Lo que significa que su relación de aspecto es de 2:1
 x Ejemplo ---> USB (Universal Serial Bus)
 La pantalla Usa el controlador SSD1306 y se comunica via interfax I2C (IIC), lo que simplifica el cableado y reduce la ocupación de pines
 
-            IIC
+
+/          IIC
 [Arduino]---------[controlador SSD1306] ------[pantalla]
 
 Cómo funciona IIC: Usa 4 pines
@@ -38,5 +39,16 @@ Estos pines permiten conectar la cantidad de módulos que sea solo con dos patas
 
 Para usar una pantalla debemos descargar una biblioteca de Arduino. Una biblioteca es un conjunto de códigos que se pueden incorporar en nuestros códigos. En este caso usaremos la biblioteca Adafruit SSD1306
 
-Para añadir imágenes en la pantalla podemos ir a la página 
+Para añadir imágenes en la pantalla podemos ir a la página https://javl.github.io/image2cpp/ y subir una imagen.
+Estas configuraciones funcionan bien
+
+![imagetocpp](./imagenes/pagina.png)
+
+Así debemos expresar el código generado por image2cpp en el código de arduino ANTES DEL SETUP
+
+![ss1](./imagenes/ssuno.png)
+
+## El código debería verse así luego del arreglo largo:
+
+![ssdos](./imagenes/ssdos.png)
         
