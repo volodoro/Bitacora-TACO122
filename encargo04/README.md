@@ -1,3 +1,18 @@
+# Encargo 04
+
+### Programar con la función 'if' dos o más rangos para valores del potenciómetro donde en cada uno el LED se comporte de distinta manera.
+
+
+Le pedí ayuda a chatGPT para implementar lo que tenía en mente, que consistía en lo siguiente:
+
+Dividir el rango del potenciómetro -desde 100 a 2000- en tres segmentos similares, donde en cada uno y según el siguiente orden, ocurre:
+
+- Primer segmento (hasta 666) ---> Aquí lo que sucede es que el Led se enciende y se apaga con mayor frecuencia a medida que avanza el valor del potenciómetro.
+  
+
+
+
+```ruby
 int pinLed = 6;
 int potPin = A0;
 int valorPot = 0;
@@ -51,3 +66,4 @@ void loop() {
   Serial.print("PotMapeado: ");
   Serial.println(potMapeado);
 }
+```
