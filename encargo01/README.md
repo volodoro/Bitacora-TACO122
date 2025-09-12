@@ -1,6 +1,7 @@
-# Clase 01
+# Encargo 01
 
-## Aquí están los apuntes de la primera clase
+### 1.- Seleccionar un trabajo de un artista que trabaje con texto 
+### 2.- Seleccionar un referente en cuanto a las herramientas concretas que nos gustaría trabajar
 
 ## Artista que trabaje con palabras: Raúl Zurita
 ​
