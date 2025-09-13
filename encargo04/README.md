@@ -7,7 +7,13 @@ Le pedí ayuda a chatGPT para implementar lo que tenía en mente, que consistía
 
 Dividir el rango del potenciómetro -desde 100 a 2000- en tres segmentos similares, donde en cada uno y según el siguiente orden, ocurre:
 
-- Primer segmento (hasta 666) ---> Aquí lo que sucede es que el Led se enciende y se apaga con mayor frecuencia a medida que avanza el valor del potenciómetro.
+- Zona 1 (hasta 666) ---> Aquí lo que sucede es que el Led se enciende y se apaga con mayor frecuencia a medida que avanza el valor del potenciómetro.
+
+- Zona 2 (hasta 1332) ---> Lo que aquí sucede es que aprovechamos la función de Pulse-Width-Modulation (PWM~) para hacer que el LED se encienda
+  progresivamente desde lo más tenue a lo más intenso.
+  
+- Zona 3: Aquí lo que sucede es que según el valor de una variable declarada como "brillo" el LED realiza un fade in u out cuando ésta alcanza los valores 0 (mínimo) o 255 (máximo). Lo que modifica el valor de brillo es otra variable que se llama dir (por dirección), la cual suma o resta a brillo según lo que plantea la operación lógica del paréntesis  " (brillo <= 0 || brillo >= 255) ". 
+
   
 
 
