@@ -34,6 +34,9 @@ void loop() {
     Serial.println("Botón presionado!");
   }
   delay(100);
-```
-
 }
+```
+Para utilizar el encoder hay que utilizar una librería
+
+# PROXIMA CLASE TRAER ACELERÓMETRO SOLDADO
+
