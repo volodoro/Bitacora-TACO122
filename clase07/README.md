@@ -39,4 +39,12 @@ void loop() {
 Para utilizar el encoder hay que utilizar una librería
 
 # PROXIMA CLASE TRAER ACELERÓMETRO SOLDADO
+# COMPRAR MOTOR PASO A PASO
+# TRAER CABLES - MACHO/HEMBRA
 
+MOTOR PASO A PASO.
+
+Por qué se llama paso a paso? Por que cada vez que recibe una señal, avanza un 'paso' que será una cantidad concreta de grados.
+
+El motor siempre necesitará un DRIVER para comunicarse con arduino, ya que no basta con arduino por sí solo para hacerlo funcionar.
+El driver necesita usar cables hembra-macho
