@@ -15,6 +15,8 @@ Referencia de las visuales que he logrado anteriormente con este método: https:
 
 Referente: Jaime Cid - Colores minerales, una síntesis (obra audiovisual, 2025) ---> https://youtu.be/_Z9uiDLq_TU?si=aBgdQfzhamxI3q_b&t=2837. Lo que me interesa extraer de aquí es el método a través del cual se extrae la información de color de la imagen que luego es mapeada para controlar parámetros del sonido.
 
+Podría hacer que los colores de cada letra (o cada palabra para hacerlo más fácil) varíen de forma independiente.
+
 Mapear la info recogida desde el punto detector de colores en processing a info en Pure Data, me hace sentido usar un sonido de sintetizador tipo diente de sierra porque creo que es coherente con la estética de video analógico. Tal vez el parámetro obtenido desde processing pueda controlar la altura (pitch) de un acorde, y podría incorporar un secuenciador para generar cambios de acordes.
 
 Podría usar la librería de video de processing para proyectar la imagen desde la cámara al televisor, y escriibir las letras sobre eso, las letras también serían parte del loop de feedback en ese caso.
