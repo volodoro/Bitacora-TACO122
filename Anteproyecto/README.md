@@ -176,3 +176,13 @@ float lerpHue(float a, float b, float amt) {
 
 
 ```
+# La teoría del caos
+
+Al remontarse a finales del siglo XVII luego de que Isaac Newton postulara su segunda ley y su teoría de gravitación universal, pareciera que todo se volvió predecible y que en teoría seríamos capaces de indicar con certeza el movimiento de planetas y cometas con siglos de anticipación.
+
+Determinismo total ---> El futuro ya está fijado, sólo debemos esperar que se manifieste ---> Demonio de Laplace, un ser con el conocimiento del comportamiento de todo el universo que a través de esa información descifra el pasado y el futuro.
+
+## EL Caos
+
+Edward Lorenz ---> En 1963 ejecutó un código para predecir las condiciones atmosféricas a partir de 12 variables que la computadora imprimía graficando una curva. Cuando Lorenz corrió el código una segunda vez, fue por un café mientras la computadora procesaba los datos, y al volver notó que la segunda curva tendía a lo mismo que la primera en un comienzo, sin embargo con el paso del tiempo empezaba a divergir hasta comportarse de manera completamente distinta a al primer resultado. Las diferencias de las curvas se debían a que en su segunda ejecución, Lorenz había ingresado solo tres decimales en lugar de seis con los que trabajó originalmente. Este fenómeno se denominó "sensibilidad a las condiciones iniciales".
+
