@@ -30,7 +30,7 @@ Podría usar la librería de video de processing para proyectar la imagen desde 
 Cámara Hi-8 ---> Processing in (Acá se incorporan las palabras) ----> Processing Out (De HDMI a Componente o Video Compuesto) ---> Tele CRT
 
 # Processing
-### Código de processing para extraer info de color a través de cámara
+### Código de processing para extraer info de color a través de cámara actualizado 12.11.25
 
 
 ```processing
@@ -40,15 +40,16 @@ Capture cam;
 
 PVector pos;
 PVector dir;
-float velocidad = 1;
+float velocidad = 1.5;
 
-// Colores interpolados
-float hueActual = 0;
-float hueObjetivo = 0;
-float sActual = 100;
-float sObjetivo = 100;
-float bActual = 100;
-float bObjetivo = 100;
+// Colores interpolados en RGB
+float rActual = 255;
+float gActual = 255;
+float bActual = 255;
+
+float rObjetivo = 255;
+float gObjetivo = 255;
+float bObjetivo = 255;
 
 String[] versos = {
   "Todo está bien",
@@ -58,20 +59,27 @@ String[] versos = {
 
 void setup() {
   size(640, 480);
-  colorMode(HSB, 360, 100, 100);
+  // RGB por defecto (0–255), no necesitamos colorMode aquí
   textAlign(CENTER, CENTER);
   textSize(48);
   smooth();
+  frameRate(60);
 
   // --- Inicializar cámara ---
   String[] cameras = Capture.list();
-  if (cameras.length == 0) {
+  if (cameras == null || cameras.length == 0) {
     println("No se encontró cámara :(");
     exit();
-  } else {
-    cam = new Capture(this, cameras[0]);
-    cam.start();
   }
+
+  int indexCam = 3; // cámara por defecto: índice 3
+  if (indexCam >= cameras.length) {
+    println("No existe cameras[3], usando cameras[0] en su lugar.");
+    indexCam = 0;
+  }
+  println("Usando cámara: " + cameras[indexCam]);
+  cam = new Capture(this, cameras[indexCam]);
+  cam.start();
 
   // --- Inicializar punto ---
   pos = new PVector(random(width), random(height));
@@ -86,70 +94,92 @@ void draw() {
 
   // Mostrar imagen de cámara como fondo
   image(cam, 0, 0, width, height);
-  // después de image(cam, 0, 0, width, height);
-
-int rango = 5;
-float hSum = 0, sSum = 0, bSum = 0;
-int count = 0;
-
-for (int dx = -rango; dx <= rango; dx++) {
-  for (int dy = -rango; dy <= rango; dy++) {
-    int x = constrain(int(pos.x) + dx, 0, width - 1);
-    int y = constrain(int(pos.y) + dy, 0, height - 1);
-    color cTemp = get(x, y);
-    hSum += hue(cTemp);
-    sSum += saturation(cTemp);
-    bSum += brightness(cTemp);
-    count++;
-  }
-}
-
-float hProm = hSum / count;
-float sProm = sSum / count;
-float bProm = bSum / count;
-
-hueObjetivo = hProm;
-sObjetivo = sProm;
-bObjetivo = bProm;
-
 
   // --- Movimiento del punto ---
   pos.add(PVector.mult(dir, velocidad));
 
   // Rebote en bordes
-  if (pos.x < 0 || pos.x > width) dir.x *= -1;
-  if (pos.y < 0 || pos.y > height) dir.y *= -1;
+  if (pos.x < 0) {
+    pos.x = 0;
+    dir.x *= -1;
+  }
+  if (pos.x > width) {
+    pos.x = width;
+    dir.x *= -1;
+  }
+  if (pos.y < 0) {
+    pos.y = 0;
+    dir.y *= -1;
+  }
+  if (pos.y > height) {
+    pos.y = height;
+    dir.y *= -1;
+  }
 
-  // --- Obtener color del punto desde la cámara ---
-  color c = get(int(pos.x), int(pos.y));
-                 
+  // ---------------------------------
+  //   PROMEDIO DE COLOR EN RGB
+  //   (FIEL AL LUGAR BAJO EL PUNTO)
+  // ---------------------------------
 
-  hueObjetivo = hue(c);
-  sObjetivo = saturation(c);
-  bObjetivo = brightness(c);
+  int rango = 5; // radio del área (ajusta 3–10 según gusto)
+  float rSum = 0;
+  float gSum = 0;
+  float bSum = 0;
+  int count = 0;
 
-  // --- Interpolación suave ---
-  hueActual = lerpHue(hueActual, hueObjetivo, 0.05);
-  sActual = lerp(sActual, sObjetivo, 0.05);
-  bActual = lerp(bActual, bObjetivo, 0.05);
+  // Mapeamos la posición del punto (en el lienzo) a la resolución de la cámara
+  float baseX = map(pos.x, 0, width, 0, cam.width - 1);
+  float baseY = map(pos.y, 0, height, 0, cam.height - 1);
 
-  float hueContorno = (hueActual + 180) % 360;
+  for (int dx = -rango; dx <= rango; dx++) {
+    for (int dy = -rango; dy <= rango; dy++) {
+      int px = constrain(int(baseX) + dx, 0, cam.width - 1);
+      int py = constrain(int(baseY) + dy, 0, cam.height - 1);
+      color cTemp = cam.get(px, py); // leemos directamente de la cámara
+      rSum += red(cTemp);
+      gSum += green(cTemp);
+      bSum += blue(cTemp);
+      count++;
+    }
+  }
+
+  if (count > 0) {
+    rObjetivo = rSum / count;
+    gObjetivo = gSum / count;
+    bObjetivo = bSum / count;
+  }
+
+  // ---------------------------------
+  //   INTERPOLACIÓN SUAVE EN RGB
+  // ---------------------------------
+  float k = 0.35; // sube este valor si quieres que siga el color aún más rápido
+
+  rActual = lerp(rActual, rObjetivo, k);
+  gActual = lerp(gActual, gObjetivo, k);
+  bActual = lerp(bActual, bObjetivo, k);
+
+  // Complemento RGB para el contorno
+  float rComp = 255 - rActual;
+  float gComp = 255 - gActual;
+  float bComp = 255 - bActual;
 
   // --- Dibujar punto rojo (referencia visual) ---
   noStroke();
-  fill(0, 100, 100);
+  fill(255, 0, 0);
   ellipse(pos.x, pos.y, 14, 14);
 
   // --- Dibujar texto con contorno complementario ---
   pushMatrix();
   translate(width/2, height/2 - 80);
 
-  for (int i = 0; i < versos.length; i++) {
-    float y = i * 70;
-    float borde = 4; // grosor del contorno
+  float borde = 4; // grosor del contorno
+  float espacio = 70;
 
-    // Contorno simulado
-    fill(hueContorno, 100, 100);
+  for (int i = 0; i < versos.length; i++) {
+    float y = i * espacio;
+
+    // Contorno simulado (texto desplazado alrededor)
+    fill(rComp, gComp, bComp);
     for (float dx = -borde; dx <= borde; dx += borde) {
       for (float dy = -borde; dy <= borde; dy += borde) {
         if (dx != 0 || dy != 0) {
@@ -158,22 +188,13 @@ bObjetivo = bProm;
       }
     }
 
-    // Texto principal
-    fill(hueActual, 100, 100);
+    // Texto principal con el color promedio real
+    fill(rActual, gActual, bActual);
     text(versos[i], 0, y);
   }
 
   popMatrix();
 }
-
-// --- Interpolación de hue circular (para evitar saltos entre 359 y 0) ---
-float lerpHue(float a, float b, float amt) {
-  float diff = b - a;
-  if (diff > 180) diff -= 360;
-  if (diff < -180) diff += 360;
-  return (a + diff * amt + 360) % 360;
-}
-
 
 ```
 # La teoría del caos
@@ -185,4 +206,8 @@ Determinismo total ---> El futuro ya está fijado, sólo debemos esperar que se 
 ## EL Caos
 
 Edward Lorenz ---> En 1963 ejecutó un código para predecir las condiciones atmosféricas a partir de 12 variables que la computadora imprimía graficando una curva. Cuando Lorenz corrió el código una segunda vez, fue por un café mientras la computadora procesaba los datos, y al volver notó que la segunda curva tendía a lo mismo que la primera en un comienzo, sin embargo con el paso del tiempo empezaba a divergir hasta comportarse de manera completamente distinta a al primer resultado. Las diferencias de las curvas se debían a que en su segunda ejecución, Lorenz había ingresado solo tres decimales en lugar de seis con los que trabajó originalmente. Este fenómeno se denominó "sensibilidad a las condiciones iniciales".
+
+![atractores](imagenes/lorenz01.png)
+
+^^^Curvas conocidas como "atractores de Lorenz". Grafican la divergencia que pueden tener los comportamientos de cualquier cosa al introducir una diferencia en las condiciones iniciales por ínfima que esta sea.
 
