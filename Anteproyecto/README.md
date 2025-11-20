@@ -211,3 +211,10 @@ Edward Lorenz ---> En 1963 ejecutó un código para predecir las condiciones atm
 
 ^^^Curvas conocidas como "atractores de Lorenz". Grafican la divergencia que pueden tener los comportamientos de cualquier cosa al introducir una diferencia en las condiciones iniciales por ínfima que esta sea.
 
+------------------- 20/11
+
+# NO AFINAR
+
+## CONTEMPLAR LA POSIBILIDAD DE PROBAR UN GRANULADOR 
+
+
